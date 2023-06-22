@@ -10,7 +10,8 @@ function UserForm() {
   const handleChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value // [e.target.name] -> usamos essa sintaxe quando queiremos que a chave se torne um elemento dinãmico, ele está lendo a var 'name' do input, que pode ser name, email ou password
+                                     // e.target.value -> capturando o elemento digitado pelo user              
     });
   };
 
@@ -33,7 +34,7 @@ function UserForm() {
           name="name"
           value={user.name}
           onChange={handleChange}
-        />
+        /> {/** onChange -> está escutando as mudanças do meu input e invocando a função handleChange, a função handleChange seta valores de chave e valor pegos dentro do input q são a var name e value */}
       </label>
       <label>
         Email:
