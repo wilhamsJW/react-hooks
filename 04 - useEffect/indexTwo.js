@@ -1,49 +1,45 @@
+
+/** Agora com variável no array de dependencias, isso é útil caso queira fazer com que o request seja 
+chamado em outros lugares ou são outras requests */
+
 import React, { useState, useEffect } from 'react';
 
 export function App() {
-  const [data, setData] = useState();
-  const [datTwo, setDataTwo] = useState(Boolean);
-  const [datThree, setDataThree] = useState(Boolean);
-  const [datFor, setDataFor] = useState(Boolean);
+  const [datTwo, setDataTwo] = useState();
+  const [change, setChange] = useState();
+  const [qtd, setQtd] = useState(1);
 
   // Com variável no array de dependecia
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=180');
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${qtd}`);
         const jsonData = await response.json();
-        setData(jsonData);
+        setDataTwo(jsonData);
+        console.log("datTwo", jsonData)
       } catch (error) {
         console.log('Erro ao buscar dados da API:', error);
       }
     };
 
     fetchData();
-  }, [datTwo, datThree, datFor]); // explicações abaixo sobre array de dependencia vazio
+  }, [change]); // cada vez que essa var change for alterada o código dentro do useEffect será executado e isso acontecerá a cada click do usuário
 
   const getDatTwo = () => {
-    return setDataTwo(true)
-  }
-
-  const getDatThree = () => {
-    return setDataTwo(true)
-  }
-
-  const getDatFor = () => {
-    return setDataTwo(true)
+    const result = qtd + 1
+    setQtd(result)
+    return setChange(prevDataTwo => !prevDataTwo);
   }
 
   return (
     <div>
       <h1>Dados da API:</h1>
       <ul>
-        {data?.results.map((item, i) => (
+        {datTwo?.results.map((item, i) => (
           <li key={i}><h3>{item.name}</h3></li>
         ))}
       </ul>
       <button onClick={getDatTwo}>getDatTwo</button>
-      <button onClick={getDatThree}>getDatThree</button>
-      <button onClick={getDatThree}>getDatThree</button>
     </div>
   );
 };
