@@ -28,7 +28,10 @@ export function App() {
   const getDatTwo = () => {
     const result = qtd + 1
     setQtd(result)
-    return setChange(prevDataTwo => !prevDataTwo);
+    return setChange(prevDataTwo => !prevDataTwo); // faz com que a cada click do usuário o código dentro do useffect seja executado
+    /**
+    Sobre setChange(prevDataTwo => !prevDataTwo)
+    A função de atualização recebe um callback que acessa o valor anterior (prevDataTwo) e retorna o seu oposto (!prevDataTwo), invertendo assim o valor booleano. */
   }
 
   return (
