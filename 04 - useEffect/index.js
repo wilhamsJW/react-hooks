@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const MyComponent = () => {
-  const [data, setData] = useState([]);
+export function App() {
+  const [data, setData] = useState();
 
+  // Com array de dependecia vazio
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://api.example.com/data');
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=180');
         const jsonData = await response.json();
         setData(jsonData);
       } catch (error) {
@@ -15,21 +16,20 @@ const MyComponent = () => {
     };
 
     fetchData();
-  }, []);
+  }, []); // explicações abaixo sobre array de dependencia vazio
 
   return (
     <div>
       <h1>Dados da API:</h1>
       <ul>
-        {data.map((item) => (
-          <li key={item.id}>{item.name}</li>
+        {data?.results.map((item, i) => (
+          <li key={i}><h3>{item.name}</h3></li>
         ))}
       </ul>
+      <button></button>
     </div>
   );
 };
-
-export default MyComponent;
 
 /**
  * Explicações sobre o useEffect
